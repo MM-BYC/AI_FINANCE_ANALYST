@@ -1,0 +1,62 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "1. Live Data Stream",
+            "type": "shell",
+            "command": "uv run historical_live_stream.py",
+            "isBackground": true,
+            "problemMatcher": [],
+            "presentation": {
+                "group": "finance-analyst",
+                "panel": "dedicated"
+            }
+        },
+        {
+            "label": "2. Market Analyzer",
+            "type": "shell",
+            "command": "uv run analyze_and_report.py --watch",
+            "isBackground": true,
+            "problemMatcher": [],
+            "presentation": {
+                "group": "finance-analyst",
+                "panel": "dedicated"
+            },
+            "dependsOn": [
+                "1. Live Data Stream"
+            ]
+        },
+        {
+            "label": "3. AI Insight Watcher",
+            "type": "shell",
+            "command": "uv run ai_watch_report.py reports/ --watch",
+            "isBackground": true,
+            "problemMatcher": [],
+            "presentation": {
+                "group": "finance-analyst",
+                "panel": "dedicated"
+            },
+            "dependsOn": [
+                "2. Market Analyzer"
+            ]
+        },
+        {
+            "label": "🚀 Run AI Finance Suite",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "1. Live Data Stream",
+                "2. Market Analyzer",
+                "3. AI Insight Watcher"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "new",
+                "group": "finance-analyst"
+            }
+        }
+    ]
+}

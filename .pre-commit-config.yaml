@@ -1,0 +1,8 @@
+repos:
+  - repo: local
+    hooks:
+      - id: no-claude-code-devcontainer
+        name: No Claude Code in devcontainer
+        entry: scripts/check_devcontainer_no_claude_code.sh
+        language: system
+        pass_filenames: false

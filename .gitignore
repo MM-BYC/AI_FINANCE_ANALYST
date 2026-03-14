@@ -1,5 +1,6 @@
 .env
 .DS_Store
 .venv/
+.pre-commit-cache/
 output/
 reports/

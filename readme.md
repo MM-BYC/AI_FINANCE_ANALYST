@@ -6,3 +6,22 @@
 
 # install
 uv add yfinance pandas numpy python-dotenv groq matplotlib openai requests
+
+# Run in codespace:
+- To run in codespace. select code-> codespace tab -> click +
+- cmd + shift + P-> Type Run Task -> choose Run AI Finance suite
+- See folder output/reports
+- To End tasks.json: 
+- To “end” a Codespace (stop it so it isn’t running/billing), use one of these:
+
+From VS Code / web editor
+
+Open Command Palette: Shift+Command+P
+Run: Codespaces: Stop Current Codespace
+From GitHub UI
+
+Go to GitHub → Codespaces
+Click the … menu on your Codespace → Stop codespace
+
+[Screen PDF](docs/codespace.pdf)
+

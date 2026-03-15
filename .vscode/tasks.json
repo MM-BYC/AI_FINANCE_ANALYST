@@ -6,7 +6,19 @@
             "type": "shell",
             "command": "uv run historical_live_stream.py",
             "isBackground": true,
-            "problemMatcher": [],
+            "problemMatcher": {
+                "owner": "finance-analyst",
+                "pattern": [
+                    {
+                        "regexp": "a^"
+                    }
+                ],
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": "HISTORICAL \\+ LIVE MARKET DATA STREAM",
+                    "endsPattern": "LIVE STREAMING STARTED"
+                }
+            },
             "presentation": {
                 "group": "finance-analyst",
                 "panel": "dedicated"
@@ -17,7 +29,19 @@
             "type": "shell",
             "command": "uv run analyze_and_report.py --watch",
             "isBackground": true,
-            "problemMatcher": [],
+            "problemMatcher": {
+                "owner": "finance-analyst",
+                "pattern": [
+                    {
+                        "regexp": "a^"
+                    }
+                ],
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": "MARKET DATA ANALYZER & REPORT GENERATOR",
+                    "endsPattern": "WATCH MODE: Monitoring CSV file"
+                }
+            },
             "presentation": {
                 "group": "finance-analyst",
                 "panel": "dedicated"
@@ -31,7 +55,19 @@
             "type": "shell",
             "command": "uv run ai_watch_report.py reports/ --watch",
             "isBackground": true,
-            "problemMatcher": [],
+            "problemMatcher": {
+                "owner": "finance-analyst",
+                "pattern": [
+                    {
+                        "regexp": "a^"
+                    }
+                ],
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": "AI REPORT WATCHER & INSIGHTS GENERATOR",
+                    "endsPattern": "WATCH MODE: Monitoring for new reports"
+                }
+            },
             "presentation": {
                 "group": "finance-analyst",
                 "panel": "dedicated"

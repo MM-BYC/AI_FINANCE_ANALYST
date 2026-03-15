@@ -33,15 +33,33 @@ print("="*80)
 
 watch_mode = '--watch' in sys.argv
 csv_filename = next((arg for arg in sys.argv[1:] if arg.endswith('.csv')), None)
+output_dir = 'output'
 
-if not csv_filename:
-    # Try to find the latest CSV in the output folder automatically
-    output_dir = 'output'
+def find_latest_csv():
     if os.path.exists(output_dir):
         csv_files = [os.path.join(output_dir, f) for f in os.listdir(output_dir) if f.endswith('.csv')]
         if csv_files:
-            csv_filename = max(csv_files, key=os.path.getmtime)
-            print(f"📂 No file specified. Auto-detected latest: {csv_filename}")
+            return max(csv_files, key=os.path.getmtime)
+    return None
+
+if not csv_filename:
+    # Try to find the latest CSV in the output folder automatically
+    csv_filename = find_latest_csv()
+    if csv_filename:
+        print(f"📂 No file specified. Auto-detected latest: {csv_filename}")
+
+if (not csv_filename or not os.path.exists(csv_filename)) and watch_mode:
+    os.makedirs(output_dir, exist_ok=True)
+    print(f"⏳ Waiting for a CSV in '{output_dir}/'...")
+    while True:
+        if csv_filename and os.path.exists(csv_filename):
+            break
+        if not csv_filename:
+            csv_filename = find_latest_csv()
+            if csv_filename:
+                print(f"📂 Detected CSV: {csv_filename}")
+                break
+        time.sleep(5)
 
 if not csv_filename or not os.path.exists(csv_filename):
     print(f"\n❌ ERROR: CSV file not found or not provided.")

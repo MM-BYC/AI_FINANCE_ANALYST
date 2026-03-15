@@ -11,6 +11,7 @@ uv add yfinance pandas numpy python-dotenv groq matplotlib openai requests
 - To run in codespace. select code-> codespace tab -> click +
 - cmd + shift + P-> Type Run Task -> choose Run AI Finance suite
 - See folder output/reports
+- Note: If no `GROQ_API_KEY` is set (or network is blocked), `ai_analysis/` files will include a connection error message.
 - To End tasks.json: 
 - To “end” a Codespace (stop it so it isn’t running/billing), use one of these:
 
@@ -24,4 +25,3 @@ Go to GitHub → Codespaces
 Click the … menu on your Codespace → Stop codespace
 
 [Screen PDF](docs/codespace.pdf)
-

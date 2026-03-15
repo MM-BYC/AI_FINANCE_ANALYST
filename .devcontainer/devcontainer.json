@@ -2,8 +2,7 @@
   "name": "AI Finance Analyst",
   "image": "mcr.microsoft.com/devcontainers/python:3.12",
   "containerEnv": {
-    "UV_CACHE_DIR": "${containerWorkspaceFolder}/.uv-cache",
-    "PATH": "${containerEnv:HOME}/.local/bin:${containerEnv:PATH}"
+    "UV_CACHE_DIR": "${containerWorkspaceFolder}/.uv-cache"
   },
   "postCreateCommand": "bash .devcontainer/post-create.sh",
   "postStartCommand": "bash .devcontainer/post-start.sh",

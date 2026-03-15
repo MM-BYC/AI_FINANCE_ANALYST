@@ -2,4 +2,3 @@
 set -euo pipefail
 
 bash .devcontainer/ensure-uv.sh
-uv sync

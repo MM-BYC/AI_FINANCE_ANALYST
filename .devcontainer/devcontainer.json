@@ -4,6 +4,9 @@
   "features": {
     "ghcr.io/astral-sh/uv/devcontainer-feature/uv:1": {}
   },
+  "containerEnv": {
+    "UV_CACHE_DIR": "${containerWorkspaceFolder}/.uv-cache"
+  },
   "postCreateCommand": "uv sync",
   "customizations": {
     "vscode": {

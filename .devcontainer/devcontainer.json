@@ -1,9 +1,6 @@
 {
   "name": "AI Finance Analyst",
   "image": "mcr.microsoft.com/devcontainers/python:3.12",
-  "features": {
-    "ghcr.io/astral-sh/uv/devcontainer-feature/uv:1": {}
-  },
   "containerEnv": {
     "UV_CACHE_DIR": "${containerWorkspaceFolder}/.uv-cache",
     "PATH": "${containerEnv:HOME}/.local/bin:${containerEnv:PATH}"

@@ -1,9 +1,7 @@
 {
   "name": "AI Finance Analyst",
   "image": "mcr.microsoft.com/devcontainers/python:3.12",
-  "features": {
-    "ghcr.io/astral-sh/uv/devcontainer-feature/uv:1": {}
-  },
+  "features": {},
   "postCreateCommand": "uv sync",
   "customizations": {
     "vscode": {

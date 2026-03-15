@@ -10,7 +10,7 @@ fi
 export PATH="$HOME/.local/bin:$PATH"
 
 if ! command -v uv >/dev/null 2>&1; then
-  echo "uv not found; installing..."
+  echo "Installing uv (first-time setup for this Codespace)..."
   if command -v curl >/dev/null 2>&1; then
     curl -LsSf https://astral.sh/uv/install.sh | sh
   elif command -v wget >/dev/null 2>&1; then
@@ -19,4 +19,6 @@ if ! command -v uv >/dev/null 2>&1; then
     echo "Error: neither curl nor wget is available to install uv." >&2
     exit 1
   fi
+else
+  echo "uv already installed."
 fi

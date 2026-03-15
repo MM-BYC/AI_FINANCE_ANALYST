@@ -3,15 +3,12 @@ set -euo pipefail
 
 bash .devcontainer/ensure-uv.sh
 
-# Keep repo up to date on start (skip if there are local changes)
+# Force-refresh repo on every start (discarding local changes).
 if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
-  if [[ -z "$(git status --porcelain)" ]]; then
-    if git rev-parse --abbrev-ref --symbolic-full-name @{u} >/dev/null 2>&1; then
-      git pull --ff-only || echo "Auto-pull skipped (non-fast-forward)."
-    else
-      echo "Auto-pull skipped (no upstream branch configured)."
-    fi
-  else
-    echo "Auto-pull skipped (working tree not clean)."
-  fi
+  branch="$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo main)"
+  upstream="$(git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null || echo origin/${branch})"
+  echo "Refreshing workspace from ${upstream} (discarding local changes)..."
+  git fetch origin
+  git reset --hard "${upstream}"
+  git clean -fd
 fi

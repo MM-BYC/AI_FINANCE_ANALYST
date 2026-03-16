@@ -5,7 +5,7 @@
 #uv run ai_watch_report.py reports/ --watch
 
 # install
-uv add yfinance pandas numpy python-dotenv groq matplotlib openai requests
+uv add yfinance pandas numpy python-dotenv groq matplotlib openai requests, Rainbow CSV
 
 # Run in codespace:
 - To run in codespace. select code-> codespace tab -> click +

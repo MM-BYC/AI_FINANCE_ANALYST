@@ -31,3 +31,23 @@ Go to GitHub → Codespaces
 Click the … menu on your Codespace → Stop codespace
 
 [Screen PDF](docs/codespace.pdf)
+
+
+# Codespaces secret GROQ_API_KEY
+
+Here are the exact steps to set the Codespaces secret GROQ_API_KEY:
+
+Open your repo on GitHub.
+Go to Settings → Codespaces.
+Under Repository secrets, click New secret.
+Name: GROQ_API_KEY
+Value: your Groq API key.
+Save.
+Then in your Codespace:
+
+1. Rebuild the Codespace (or stop/start it) so the secret is injected.
+2. Verify it’s available:
+
+    echo $GROQ_API_KEY
+3. Run
+   uv run ai_watch_report.py reports/ --watch

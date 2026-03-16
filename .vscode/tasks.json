@@ -53,10 +53,7 @@
             "presentation": {
                 "group": "finance-analyst",
                 "panel": "dedicated"
-            },
-            "dependsOn": [
-                "1. Live Data Stream"
-            ]
+            }
         },
         {
             "label": "3. AI Insight Watcher",
@@ -79,14 +76,11 @@
             "presentation": {
                 "group": "finance-analyst",
                 "panel": "dedicated"
-            },
-            "dependsOn": [
-                "2. Market Analyzer"
-            ]
+            }
         },
         {
             "label": "🚀 Run AI Finance Suite",
-            "dependsOrder": "sequence",
+            "dependsOrder": "parallel",
             "dependsOn": [
                 "1. Live Data Stream",
                 "2. Market Analyzer",

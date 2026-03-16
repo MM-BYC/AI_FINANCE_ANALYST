@@ -56,8 +56,12 @@ reports_folder = sys.argv[1].rstrip('/')
 watch_mode = '--watch' in sys.argv
 
 if not os.path.exists(reports_folder):
-    print(f"\n❌ ERROR: Folder not found: {reports_folder}")
-    sys.exit(1)
+    if watch_mode:
+        os.makedirs(reports_folder, exist_ok=True)
+        print(f"\n⏳ Reports folder not found. Created and waiting: {reports_folder}")
+    else:
+        print(f"\n❌ ERROR: Folder not found: {reports_folder}")
+        sys.exit(1)
 
 # Create AI analysis directory
 AI_DIR = 'ai_analysis'

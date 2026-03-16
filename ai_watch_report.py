@@ -31,12 +31,21 @@ load_dotenv('.env.model')
 
 try:
     from groq import Groq
-    client = Groq(api_key=os.getenv('GROQ_API_KEY'))
-    GROQ_MODEL = os.getenv('GROQ_MODEL', 'llama-3.3-70b-versatile')
 except ImportError:
     print("\n❌ ERROR: Groq library not installed")
     print("Install with: uv pip install groq")
     sys.exit(1)
+
+api_key = os.getenv('GROQ_API_KEY')
+if not api_key:
+    print("\n❌ ERROR: GROQ_API_KEY is not set.")
+    print("Set it as a Codespaces secret or in a local .env file.")
+    print("Codespaces: Repo Settings → Codespaces → Secrets → New secret")
+    print("Local dev: copy .env.example to .env and set GROQ_API_KEY")
+    sys.exit(1)
+
+client = Groq(api_key=api_key)
+GROQ_MODEL = os.getenv('GROQ_MODEL', 'llama-3.3-70b-versatile')
 
 print("="*80)
 print("AI REPORT WATCHER & INSIGHTS GENERATOR (VERSION 2)")

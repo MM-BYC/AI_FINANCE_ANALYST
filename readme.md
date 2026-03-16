@@ -7,11 +7,17 @@
 # install
 uv add yfinance pandas numpy python-dotenv groq matplotlib openai requests, Rainbow CSV
 
+# Groq API key setup
+- Codespaces: Repo Settings → Codespaces → Secrets → New secret
+  - Name: GROQ_API_KEY
+  - Value: your Groq API key
+- Local dev: copy `.env.example` to `.env` and set `GROQ_API_KEY`
+
 # Run in codespace:
 - To run in codespace. select code-> codespace tab -> click +
 - cmd + shift + P-> Type Run Task -> choose Run AI Finance suite
 - See folder output/reports
-- Note: If no `GROQ_API_KEY` is set (or network is blocked), `ai_analysis/` files will include a connection error message.
+- Note: If no `GROQ_API_KEY` is set, the AI watcher will exit with an error message.
 - To End tasks.json: 
 - To “end” a Codespace (stop it so it isn’t running/billing), use one of these:
 

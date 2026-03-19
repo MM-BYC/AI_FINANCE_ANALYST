@@ -1,0 +1,110 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  pre-commit:
+    name: Lint & Pre-commit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+
+      - name: Set up Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
+
+      - name: Install dependencies
+        run: uv sync
+
+      - name: Run pre-commit
+        uses: pre-commit/action@2c7b3805fd2a0fd8c1884dcaebf91fc102a13ecd # v3.0.1
+
+  validate:
+    name: Validate Imports & Syntax
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+
+      - name: Set up Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
+
+      - name: Install dependencies
+        run: uv sync
+
+      - name: Check syntax of all scripts
+        run: |
+          uv run python -m py_compile main.py
+          uv run python -m py_compile historical_live_stream.py
+          uv run python -m py_compile analyze_and_report.py
+          uv run python -m py_compile ai_watch_report.py
+
+      - name: Verify core imports
+        run: |
+          uv run python -c "
+          import pandas
+          import numpy
+          import yfinance
+          import groq
+          import dotenv
+          import matplotlib
+          import requests
+          import openai
+          print('All core imports OK')
+          "
+
+      - name: Check GROQ_API_KEY handling (no key scenario)
+        run: |
+          uv run python -c "
+          import os
+          os.environ.pop('GROQ_API_KEY', None)
+          import importlib.util
+          spec = importlib.util.spec_from_file_location('ai_watch_report', 'ai_watch_report.py')
+          mod = importlib.util.module_from_spec(spec)
+          print('ai_watch_report module loads OK')
+          "
+
+  codespaces-config:
+    name: Validate Devcontainer Config
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+
+      - name: Validate devcontainer.json is valid JSON
+        run: |
+          python3 -c "
+          import json
+          with open('.devcontainer/devcontainer.json') as f:
+              config = json.load(f)
+          print('devcontainer.json is valid JSON')
+          print('Image:', config.get('image', 'N/A'))
+          "
+
+      - name: Check required devcontainer scripts exist
+        run: |
+          for script in \
+            .devcontainer/post-create.sh \
+            .devcontainer/post-start.sh \
+            .devcontainer/ensure-uv.sh \
+            .devcontainer/refresh-repo.sh; do
+            if [ -f "$script" ]; then
+              echo "OK: $script"
+            else
+              echo "MISSING: $script" && exit 1
+            fi
+          done

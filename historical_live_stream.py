@@ -26,7 +26,8 @@ print("HISTORICAL + LIVE MARKET DATA STREAM (VERSION 2)")
 print("="*80)
 
 # Configuration
-TICKERS = ["AAPL", "MSFT", "GOOGL"]
+with open('tickers.txt') as f:
+    TICKERS = [line.strip() for line in f if line.strip()]
 LIVE_INTERVAL_SECONDS = 10
 OUTPUT_DIR = 'output'
 HISTORICAL_YEARS = 5
